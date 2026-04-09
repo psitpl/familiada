@@ -1,0 +1,56 @@
+{
+  "_instrukcja": "Edytuj pytania i odpowiedzi tutaj. Kazde pytanie ma liste odpowiedzi z punktami (im wyzszy wynik, tym czesciej byla podawana). Suma punktow w rundzie to 100.",
+  "pytania": [
+    {
+      "pytanie": "Podaj rzecz, którą zawsze masz w torebce lub plecaku.",
+      "odpowiedzi": [
+        { "tekst": "Telefon", "punkty": 38 },
+        { "tekst": "Portfel / klucze", "punkty": 27 },
+        { "tekst": "Chusteczki", "punkty": 15 },
+        { "tekst": "Ładowarka", "punkty": 10 },
+        { "tekst": "Guma do żucia", "punkty": 6 },
+        { "tekst": "Długopis", "punkty": 4 }
+      ]
+    },
+    {
+      "pytanie": "Podaj polskie miasto, które najchętniej odwiedziłbyś na weekend.",
+      "odpowiedzi": [
+        { "tekst": "Kraków", "punkty": 35 },
+        { "tekst": "Gdańsk", "punkty": 25 },
+        { "tekst": "Wrocław", "punkty": 20 },
+        { "tekst": "Zakopane", "punkty": 12 },
+        { "tekst": "Warszawa", "punkty": 8 }
+      ]
+    },
+    {
+      "pytanie": "Podaj coś, co robisz jako pierwsze po wstaniu z łóżka.",
+      "odpowiedzi": [
+        { "tekst": "Sprawdzam telefon", "punkty": 40 },
+        { "tekst": "Idę do toalety", "punkty": 30 },
+        { "tekst": "Piję kawę / herbatę", "punkty": 15 },
+        { "tekst": "Myję zęby", "punkty": 10 },
+        { "tekst": "Robię śniadanie", "punkty": 5 }
+      ]
+    },
+    {
+      "pytanie": "Podaj popularne polskie danie.",
+      "odpowiedzi": [
+        { "tekst": "Bigos", "punkty": 30 },
+        { "tekst": "Pierogi", "punkty": 28 },
+        { "tekst": "Żurek", "punkty": 18 },
+        { "tekst": "Kotlet schabowy", "punkty": 14 },
+        { "tekst": "Gołąbki", "punkty": 10 }
+      ]
+    },
+    {
+      "pytanie": "Podaj coś, co robimy na imprezie sylwestrowej.",
+      "odpowiedzi": [
+        { "tekst": "Oglądamy fajerwerki", "punkty": 32 },
+        { "tekst": "Tańczymy", "punkty": 28 },
+        { "tekst": "Wznosimy toast szampanem", "punkty": 20 },
+        { "tekst": "Śpiewamy", "punkty": 12 },
+        { "tekst": "Jemy przekąski", "punkty": 8 }
+      ]
+    }
+  ]
+}

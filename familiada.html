@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>Familiada</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #08102a;
+  color: #fff;
+  font-family: 'Oswald', 'Arial Narrow', Arial, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  user-select: none;
+  overflow-x: hidden;
+}
+
+/* ============================
+   EKRAN ŁADOWANIA
+   ============================ */
+#ekran-ladowania {
+  text-align: center;
+  max-width: 680px;
+  width: 100%;
+}
+
+.logo {
+  font-size: 4.8rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #fff;
+  line-height: 1;
+}
+.logo-kreska {
+  height: 5px;
+  background: linear-gradient(90deg, #8a6800, #f5d96e, #c8a02a, #f5d96e, #8a6800);
+  border-radius: 3px;
+  margin: 8px auto 6px;
+  width: 80%;
+}
+.logo-sub {
+  font-size: 0.75rem;
+  color: #4a6080;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  margin-bottom: 2.8rem;
+}
+
+#input-plik, #input-dzwieki { display: none; }
+
+.btn-main {
+  background: linear-gradient(180deg, #e8c040 0%, #b88c18 100%);
+  color: #050e22;
+  border: none;
+  padding: 15px 44px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  font-family: inherit;
+  border-radius: 5px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  box-shadow: 0 5px 0 #6a4a00, 0 6px 12px rgba(0,0,0,0.5);
+  transition: filter 0.1s;
+}
+.btn-main:hover { filter: brightness(1.12); }
+.btn-main:active { transform: translateY(3px); box-shadow: 0 2px 0 #6a4a00; }
+
+.btn-sec {
+  background: transparent;
+  color: #c8a02a;
+  border: 1px solid #4a3a10;
+  padding: 9px 26px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: inherit;
+  border-radius: 5px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 12px;
+  transition: border-color 0.15s, color 0.15s;
+}
+.btn-sec:hover { border-color: #c8a02a; color: #f5d96e; }
+
+#panel-dzwiekow {
+  margin-top: 1.8rem;
+  background: #0b1830;
+  border: 1px solid #1a2e50;
+  border-radius: 8px;
+  padding: 14px 20px;
+  text-align: left;
+  max-width: 460px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.dzw-tytul { color: #c8a02a; font-weight: 700; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 10px; }
+.dzw-slot { display: flex; align-items: center; gap: 10px; padding: 4px 0; border-bottom: 1px solid #162440; }
+.dzw-slot:last-of-type { border-bottom: none; }
+.dzw-dot { width: 7px; height: 7px; border-radius: 50%; background: #2a3a50; flex-shrink: 0; }
+.dzw-dot.ok { background: #2a8a40; }
+.dzw-label { flex: 1; color: #8899bb; font-size: 0.78rem; }
+.dzw-file { color: #3a4e6a; font-size: 0.72rem; font-style: italic; }
+.dzw-hint { margin-top: 8px; color: #2a3a50; font-size: 0.7rem; }
+
+/* ============================
+   EKRAN GRY
+   ============================ */
+#ekran-gry { display: none; width: 100%; max-width: 980px; }
+
+/* Górna belka wyników */
+#gorny-pasek {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: stretch;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.d-panel {
+  background: #0b1830;
+  border: 2px solid #1a2e54;
+  border-top: 4px solid #1a2e54;
+  border-radius: 6px;
+  padding: 10px 16px;
+  text-align: center;
+  transition: border-color 0.2s, border-top-color 0.2s;
+  position: relative;
+}
+.d-panel.akt {
+  border-color: #4a6aaa;
+  border-top-color: #c8a02a;
+  background: #0e2040;
+}
+.d-panel .d-nazw {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #4a6080;
+  margin-bottom: 2px;
+}
+.d-panel.akt .d-nazw { color: #c8a02a; }
+.d-panel .d-wyk {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+}
+
+#mid-panel {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 100px;
+}
+#runda-label { font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: #3a5070; }
+#pkt-licznik {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #f5d96e;
+  line-height: 1;
+}
+#pkt-label { font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: #3a5070; }
+
+/* ---- BUZZERY ---- */
+#buzzery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.buz-wrap { display: flex; flex-direction: column; align-items: stretch; gap: 4px; }
+.buz-label { font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: #3a5070; text-align: center; }
+.buz-btn {
+  padding: 14px 10px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  font-family: inherit;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: filter 0.1s, transform 0.08s;
+}
+.buz-btn:active { transform: translateY(3px); }
+.buz-btn:disabled { opacity: 0.28; cursor: not-allowed; transform: none !important; }
+.buz-d1 {
+  background: linear-gradient(180deg, #2a55dd 0%, #1a3599 100%);
+  color: #fff;
+  box-shadow: 0 5px 0 #0d1e66, 0 6px 14px rgba(0,0,0,0.5);
+}
+.buz-d2 {
+  background: linear-gradient(180deg, #cc2a2a 0%, #8a1818 100%);
+  color: #fff;
+  box-shadow: 0 5px 0 #5a0a0a, 0 6px 14px rgba(0,0,0,0.5);
+}
+.buz-btn.flash {
+  animation: buzFlash 0.55s ease;
+}
+@keyframes buzFlash {
+  0%   { filter: brightness(2.8) saturate(0.4); transform: scale(1.05) translateY(-2px); }
+  60%  { filter: brightness(1.5); transform: scale(1.02); }
+  100% { filter: brightness(1); transform: scale(1); }
+}
+.buz-key { font-weight: 400; opacity: 0.55; font-size: 0.8em; margin-left: 6px; }
+
+/* ---- PASEK PYTANIA ---- */
+#pasek-q {
+  background: linear-gradient(180deg, #102460 0%, #0c1c50 100%);
+  border: 2px solid #1e3a80;
+  border-radius: 5px;
+  padding: 14px 22px;
+  text-align: center;
+  margin-bottom: 8px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  min-height: 62px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.pasek-badge {
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #c8a02a;
+  color: #050e22;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  padding: 2px 14px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+/* ---- TABLICA ODPOWIEDZI ---- */
+#tablica {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.odp-karta {
+  display: flex;
+  align-items: stretch;
+  background: #0a1838;
+  border: 2px solid #162e60;
+  border-radius: 4px;
+  overflow: hidden;
+  min-height: 56px;
+  transition: background 0.3s, border-color 0.3s;
+}
+.odp-nr {
+  background: #162e60;
+  color: #3a5888;
+  font-size: 1.25rem;
+  font-weight: 700;
+  min-width: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 2px solid #162e60;
+  transition: background 0.3s, color 0.3s;
+}
+.odp-body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px;
+  gap: 8px;
+}
+.odp-tekst {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #fff;
+  opacity: 0;
+  transition: opacity 0.35s;
+}
+.odp-pkt {
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: #f5d96e;
+  min-width: 34px;
+  text-align: right;
+  opacity: 0;
+  transition: opacity 0.35s;
+}
+.odp-karta.odkryta { background: #0a2c14; border-color: #1a5828; }
+.odp-karta.odkryta .odp-nr { background: #1a5828; border-color: #1a5828; color: #5acc80; }
+.odp-karta.odkryta .odp-tekst,
+.odp-karta.odkryta .odp-pkt { opacity: 1; }
+.odp-karta.blysk { animation: blyskOdp 0.45s ease; }
+@keyframes blyskOdp {
+  0%   { background: #1a6a30; border-color: #3a9a50; }
+  100% { background: #0a2c14; border-color: #1a5828; }
+}
+
+/* ---- BŁĘDY ---- */
+#bledy {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  align-items: center;
+  min-height: 58px;
+  margin-bottom: 6px;
+}
+.x-blad {
+  font-size: 3.4rem;
+  font-weight: 900;
+  color: #dd2222;
+  line-height: 1;
+  text-shadow: 0 0 24px rgba(220,40,40,0.5);
+  animation: xPop 0.4s cubic-bezier(0.2, 1.8, 0.4, 1);
+}
+@keyframes xPop {
+  from { transform: scale(3) rotate(-20deg); opacity: 0; }
+  to   { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+/* ---- SKRÓTY ---- */
+#skroty {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: center;
+  margin-top: 4px;
+  opacity: 0.35;
+  font-size: 0.68rem;
+  color: #6677aa;
+}
+.sk { background: #0b1830; border-radius: 3px; padding: 2px 7px; }
+.sk kbd { background: #162440; border-radius: 2px; padding: 1px 5px; font-family: monospace; font-size: 0.7rem; color: #c8a02a; }
+
+/* ============================
+   OVERLAYE
+   ============================ */
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+}
+.overlay.vis { display: flex; }
+.ov-box {
+  background: #0b1830;
+  border: 2px solid #c8a02a;
+  border-radius: 10px;
+  padding: 34px 46px;
+  text-align: center;
+  max-width: 500px;
+  width: 92%;
+}
+.ov-box h2 {
+  font-size: 1.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #f5d96e;
+  margin-bottom: 8px;
+}
+.ov-box p { color: #7a8eaa; margin-bottom: 22px; font-size: 0.95rem; }
+.ov-duza { font-size: 3rem; font-weight: 700; color: #f5d96e; margin: 10px 0; }
+.ov-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.ov-btn {
+  padding: 12px 28px;
+  border: none;
+  border-radius: 5px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  font-family: inherit;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: filter 0.1s;
+}
+.ov-btn:hover { filter: brightness(1.15); }
+.ov-ziel { background: #226a30; color: #fff; }
+.ov-czerw { background: #8a1818; color: #fff; }
+.ov-zloty { background: linear-gradient(180deg, #e8c040, #b88c18); color: #050e22; box-shadow: 0 3px 0 #6a4a00; }
+
+/* BUZZER FLASH */
+#buz-flash {
+  display: none;
+  position: fixed;
+  inset: 0;
+  align-items: center;
+  justify-content: center;
+  z-index: 300;
+  pointer-events: none;
+}
+#buz-flash.vis { display: flex; }
+#buz-msg {
+  font-size: 2.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 22px 54px;
+  border-radius: 10px;
+  border: 3px solid #fff;
+  animation: buzMsg 0.45s ease;
+}
+.buz-msg-d1 { background: #1a3a99; border-color: #6688ff; }
+.buz-msg-d2 { background: #8a1818; border-color: #ff6666; }
+@keyframes buzMsg {
+  from { transform: scale(0.6); opacity: 0; }
+  60%  { transform: scale(1.06); opacity: 1; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+/* ============================
+   EKRAN KOŃCA GRY
+   ============================ */
+#ekran-koniec {
+  display: none;
+  text-align: center;
+  max-width: 640px;
+  width: 100%;
+}
+.koniec-logo { font-size: 3.2rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+.koniec-sub { font-size: 0.9rem; font-weight: 400; color: #4a6080; letter-spacing: 0.2em; text-transform: uppercase; margin: 8px 0 26px; }
+.fin-rzad { display: flex; gap: 18px; justify-content: center; margin: 0 0 28px; flex-wrap: wrap; }
+.fin-karta {
+  background: #0b1830;
+  border: 2px solid #162440;
+  border-radius: 8px;
+  padding: 20px 42px;
+  min-width: 170px;
+}
+.fin-karta.zwyciezca { border-color: #c8a02a; background: #10203a; }
+.fin-korona { font-size: 1.8rem; margin-bottom: 6px; }
+.fin-nazwa { font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: #4a6080; margin-bottom: 4px; }
+.fin-karta.zwyciezca .fin-nazwa { color: #c8a02a; }
+.fin-pkt { font-size: 3.4rem; font-weight: 700; color: #fff; }
+</style>
+</head>
+<body>
+
+<!-- ============ ŁADOWANIE ============ -->
+<div id="ekran-ladowania">
+  <div class="logo">Familiada</div>
+  <div class="logo-kreska"></div>
+  <div class="logo-sub">Gra rodzinna &bull; Edycja imprezowa</div>
+
+  <button class="btn-main" onclick="document.getElementById('input-plik').click()">
+    Wczytaj pytania (JSON)
+  </button>
+  <input type="file" id="input-plik" accept=".json" onchange="wczytajPlik(event)">
+  <br>
+  <button class="btn-sec" onclick="document.getElementById('input-dzwieki').click()">
+    Wczytaj pliki dźwiękowe (opcjonalne)
+  </button>
+  <input type="file" id="input-dzwieki" accept="audio/*" multiple onchange="wczytajDzwieki(event)">
+
+  <div id="panel-dzwiekow">
+    <div class="dzw-tytul">Pliki dźwiękowe &mdash; folder sounds/</div>
+    <div class="dzw-slot"><span class="dzw-dot" id="dot-odpowiedz"></span><span class="dzw-label">Odkrycie odpowiedzi</span><span class="dzw-file" id="dplik-odpowiedz">sounds/odpowiedz.mp3</span></div>
+    <div class="dzw-slot"><span class="dzw-dot" id="dot-blad"></span><span class="dzw-label">Błąd (X)</span><span class="dzw-file" id="dplik-blad">sounds/blad.mp3</span></div>
+    <div class="dzw-slot"><span class="dzw-dot" id="dot-steal"></span><span class="dzw-label">Podkradzenie</span><span class="dzw-file" id="dplik-steal">sounds/steal.mp3</span></div>
+    <div class="dzw-slot"><span class="dzw-dot" id="dot-buzzer"></span><span class="dzw-label">Buzzer (naciśnięcie)</span><span class="dzw-file" id="dplik-buzzer">sounds/buzzer.mp3</span></div>
+    <div class="dzw-slot"><span class="dzw-dot" id="dot-koniec"></span><span class="dzw-label">Koniec rundy</span><span class="dzw-file" id="dplik-koniec">sounds/koniec.mp3</span></div>
+    <div class="dzw-hint">Nazwy plików muszą zawierać: odpowiedz / blad / steal / buzzer / koniec</div>
+  </div>
+
+  <p style="margin-top: 1.4rem; font-size: 0.75rem; color: #2a3a50;">
+    Edytuj <strong style="color:#4a6a8a">familiada_pytania.json</strong> aby dodać własne pytania.
+  </p>
+</div>
+
+<!-- ============ GRA ============ -->
+<div id="ekran-gry">
+
+  <div id="gorny-pasek">
+    <div class="d-panel akt" id="panel-d1">
+      <div class="d-nazw" id="nazwa-d1">Drużyna 1</div>
+      <div class="d-wyk" id="wynik-d1">0</div>
+    </div>
+    <div id="mid-panel">
+      <div id="runda-label">Runda 1</div>
+      <div id="pkt-licznik">0</div>
+      <div id="pkt-label">pkt w rundzie</div>
+    </div>
+    <div class="d-panel" id="panel-d2">
+      <div class="d-nazw" id="nazwa-d2">Drużyna 2</div>
+      <div class="d-wyk" id="wynik-d2">0</div>
+    </div>
+  </div>
+
+  <div id="buzzery">
+    <div class="buz-wrap">
+      <div class="buz-label">Drużyna 1</div>
+      <button class="buz-btn buz-d1" id="buz-d1" onclick="buzzer(0)">
+        BUZZ!<span class="buz-key">[Q]</span>
+      </button>
+    </div>
+    <div class="buz-wrap">
+      <div class="buz-label">Drużyna 2</div>
+      <button class="buz-btn buz-d2" id="buz-d2" onclick="buzzer(1)">
+        BUZZ!<span class="buz-key">[P]</span>
+      </button>
+    </div>
+  </div>
+
+  <div id="pasek-q">
+    <span class="pasek-badge">Odpowiedzi widzów</span>
+    <span id="tekst-pytania">Wczytywanie...</span>
+  </div>
+
+  <div id="tablica"></div>
+
+  <div id="bledy"></div>
+
+  <div id="skroty">
+    <span class="sk"><kbd>Q</kbd> buzzer D1</span>
+    <span class="sk"><kbd>P</kbd> buzzer D2</span>
+    <span class="sk"><kbd>1</kbd>–<kbd>9</kbd> odkryj odp.</span>
+    <span class="sk"><kbd>X</kbd> błąd</span>
+    <span class="sk"><kbd>Tab</kbd> zmień drużynę</span>
+    <span class="sk"><kbd>Space</kbd> przyznaj pkt</span>
+    <span class="sk"><kbd>R</kbd> nast. runda</span>
+  </div>
+</div>
+
+<!-- ============ KONIEC GRY ============ -->
+<div id="ekran-koniec">
+  <div class="koniec-logo">Familiada</div>
+  <div class="logo-kreska" style="margin:8px auto 0; width:60%;"></div>
+  <div class="koniec-sub">Koniec gry!</div>
+  <div class="fin-rzad" id="fin-rzad"></div>
+  <button class="btn-main" onclick="restart()">Zagraj ponownie</button>
+</div>
+
+<!-- OVERLAY: buzzer flash -->
+<div id="buz-flash">
+  <div id="buz-msg"></div>
+</div>
+
+<!-- OVERLAY: podkradzenie -->
+<div class="overlay" id="ov-steal">
+  <div class="ov-box">
+    <h2>Podkradzenie!</h2>
+    <p id="steal-info">Drużyna odpowiada!</p>
+    <div class="ov-btns">
+      <button class="ov-btn ov-ziel" onclick="steal(true)">Trafili!</button>
+      <button class="ov-btn ov-czerw" onclick="steal(false)">Pudło!</button>
+    </div>
+  </div>
+</div>
+
+<!-- OVERLAY: koniec rundy -->
+<div class="overlay" id="ov-koniec-r">
+  <div class="ov-box">
+    <h2 id="kr-tytul">Koniec rundy!</h2>
+    <div class="ov-duza" id="kr-pkt"></div>
+    <p id="kr-info"></p>
+    <button class="ov-btn ov-zloty" onclick="nastepnaRunda()">Następna runda &rarr;</button>
+  </div>
+</div>
+
+<script>
+let dane = null, s = {}, buzTimeout = null;
+
+/* ===== DŹWIĘKI ===== */
+const sfx = { odpowiedz:null, blad:null, steal:null, buzzer:null, koniec:null };
+
+function play(k) { const a=sfx[k]; if(!a) return; a.currentTime=0; a.play().catch(()=>{}); }
+
+function wczytajDzwieki(e) {
+  Array.from(e.target.files).forEach(f => {
+    const n = f.name.toLowerCase(), url = URL.createObjectURL(f);
+    let k = null;
+    if(n.includes('odpowiedz')||n.includes('ding')||n.includes('answer')) k='odpowiedz';
+    else if(n.includes('blad')||n.includes('wrong')||n.includes('error')) k='blad';
+    else if(n.includes('steal')||n.includes('podkradz')) k='steal';
+    else if(n.includes('buzzer')||n.includes('buzz')) k='buzzer';
+    else if(n.includes('koniec')||n.includes('end')||n.includes('win')||n.includes('fanf')) k='koniec';
+    if(k) {
+      sfx[k] = new Audio(url);
+      document.getElementById('dot-'+k).classList.add('ok');
+      const dp = document.getElementById('dplik-'+k);
+      dp.textContent = f.name+' ✓'; dp.style.color='#2a8a40';
+    }
+  });
+  e.target.value='';
+}
+
+(function autoload() {
+  const m={odpowiedz:'sounds/odpowiedz.mp3',blad:'sounds/blad.mp3',steal:'sounds/steal.mp3',buzzer:'sounds/buzzer.mp3',koniec:'sounds/koniec.mp3'};
+  Object.entries(m).forEach(([k,p])=>{
+    const a=new Audio(p);
+    a.addEventListener('canplaythrough',()=>{
+      sfx[k]=a;
+      document.getElementById('dot-'+k).classList.add('ok');
+      document.getElementById('dplik-'+k).style.color='#2a8a40';
+    },{once:true});
+    a.load();
+  });
+})();
+
+/* ===== WCZYTANIE PLIKU ===== */
+function wczytajPlik(e) {
+  const f=e.target.files[0]; if(!f) return;
+  const r=new FileReader();
+  r.onload=ev=>{
+    try {
+      dane=JSON.parse(ev.target.result);
+      if(!dane.pytania||!dane.pytania.length) throw new Error('Brak pytań');
+      startGra();
+    } catch(err){ alert('Błąd JSON: '+err.message); }
+  };
+  r.readAsText(f);
+}
+
+/* ===== INIT ===== */
+function startGra() {
+  s={ runda:0, aktywna:0, grajaca:0, wyniki:[0,0], bledy:0, odkryte:[], faza:'buzzer', pkt:0, buzLock:false };
+  document.getElementById('ekran-ladowania').style.display='none';
+  document.getElementById('ekran-gry').style.display='block';
+  document.getElementById('ekran-koniec').style.display='none';
+  loadRunda();
+}
+
+function loadRunda() {
+  if(s.runda >= dane.pytania.length){ endGra(); return; }
+  const p=dane.pytania[s.runda];
+  s.odkryte=new Array(p.odpowiedzi.length).fill(false);
+  s.bledy=0; s.pkt=0; s.faza='buzzer'; s.buzLock=false;
+  document.getElementById('runda-label').textContent='Runda '+(s.runda+1);
+  document.getElementById('pkt-licznik').textContent='0';
+  document.getElementById('tekst-pytania').textContent=p.pytanie;
+  unlockBuz(); renderOdp(); renderBledy(); updatePanele();
+  document.getElementById('ov-steal').classList.remove('vis');
+  document.getElementById('ov-koniec-r').classList.remove('vis');
+}
+
+/* ===== BUZZERY ===== */
+function unlockBuz() {
+  document.getElementById('buz-d1').disabled=false;
+  document.getElementById('buz-d2').disabled=false;
+  s.buzLock=false;
+}
+function lockBuz() {
+  document.getElementById('buz-d1').disabled=true;
+  document.getElementById('buz-d2').disabled=true;
+  s.buzLock=true;
+}
+
+function buzzer(d) {
+  if(s.buzLock) return;
+  if(s.faza!=='buzzer'&&s.faza!=='gra') return;
+  lockBuz();
+  play('buzzer');
+  s.aktywna=d; s.grajaca=d; s.faza='gra';
+  updatePanele();
+
+  const nazwy=getNazwy();
+  const msg=document.getElementById('buz-msg');
+  msg.textContent=nazwy[d]+'!';
+  msg.className=d===0?'buz-msg-d1':'buz-msg-d2';
+  const fl=document.getElementById('buz-flash');
+  fl.classList.add('vis');
+  if(buzTimeout) clearTimeout(buzTimeout);
+  buzTimeout=setTimeout(()=>fl.classList.remove('vis'),1500);
+
+  const btn=document.getElementById('buz-d'+(d+1));
+  btn.classList.add('flash');
+  btn.addEventListener('animationend',()=>btn.classList.remove('flash'),{once:true});
+}
+
+/* ===== RENDER ===== */
+function renderOdp() {
+  const p=dane.pytania[s.runda], t=document.getElementById('tablica');
+  t.innerHTML='';
+  p.odpowiedzi.forEach((o,i)=>{
+    const el=document.createElement('div');
+    el.className='odp-karta'+(s.odkryte[i]?' odkryta':'');
+    el.id='k'+i;
+    el.innerHTML=`<div class="odp-nr">${i+1}</div><div class="odp-body"><span class="odp-tekst">${o.tekst}</span><span class="odp-pkt">${o.punkty}</span></div>`;
+    t.appendChild(el);
+  });
+}
+
+function renderBledy() {
+  const p=document.getElementById('bledy');
+  p.innerHTML='';
+  for(let i=0;i<s.bledy;i++){
+    const x=document.createElement('span');
+    x.className='x-blad'; x.textContent='X'; p.appendChild(x);
+  }
+}
+
+function updatePanele() {
+  document.getElementById('wynik-d1').textContent=s.wyniki[0];
+  document.getElementById('wynik-d2').textContent=s.wyniki[1];
+  document.getElementById('panel-d1').classList.toggle('akt',s.aktywna===0);
+  document.getElementById('panel-d2').classList.toggle('akt',s.aktywna===1);
+}
+
+function getNazwy() {
+  return [document.getElementById('nazwa-d1').textContent, document.getElementById('nazwa-d2').textContent];
+}
+
+/* ===== LOGIKA ===== */
+function odkryj(nr) {
+  if(s.faza!=='gra') return;
+  const p=dane.pytania[s.runda], i=nr-1;
+  if(i<0||i>=p.odpowiedzi.length||s.odkryte[i]) return;
+  s.odkryte[i]=true; s.pkt+=p.odpowiedzi[i].punkty;
+  document.getElementById('pkt-licznik').textContent=s.pkt;
+  play('odpowiedz');
+  const k=document.getElementById('k'+i);
+  k.classList.add('odkryta','blysk');
+  k.addEventListener('animationend',()=>k.classList.remove('blysk'),{once:true});
+  if(s.odkryte.every(Boolean)){ s.wyniki[s.grajaca]+=s.pkt; koniecRundy(s.grajaca,s.pkt); }
+}
+
+function blad() {
+  if(s.faza!=='gra') return;
+  s.bledy++; play('blad'); renderBledy();
+  if(s.bledy>=3){
+    s.faza='steal';
+    const st=1-s.grajaca, nazwy=getNazwy();
+    document.getElementById('steal-info').textContent=nazwy[st]+' — jedna szansa na podkradzenie '+s.pkt+' pkt!';
+    setTimeout(()=>play('steal'),350);
+    document.getElementById('ov-steal').classList.add('vis');
+  }
+}
+
+function steal(ok) {
+  document.getElementById('ov-steal').classList.remove('vis');
+  const st=1-s.grajaca;
+  if(ok){ s.wyniki[st]+=s.pkt; koniecRundy(st,s.pkt); }
+  else { s.wyniki[s.grajaca]+=s.pkt; koniecRundy(s.grajaca,s.pkt); }
+}
+
+function koniecRundy(d,pkt) {
+  s.faza='koniec_rundy';
+  const nazwy=getNazwy();
+  document.getElementById('kr-tytul').textContent='Koniec rundy!';
+  document.getElementById('kr-pkt').textContent='+'+pkt+' pkt';
+  document.getElementById('kr-info').textContent=nazwy[d]+' zdobywa punkty!';
+  play('koniec'); lockBuz();
+  dane.pytania[s.runda].odpowiedzi.forEach((_,i)=>{
+    s.odkryte[i]=true;
+    const k=document.getElementById('k'+i); if(k) k.classList.add('odkryta');
+  });
+  updatePanele();
+  document.getElementById('ov-koniec-r').classList.add('vis');
+}
+
+function nastepnaRunda() {
+  document.getElementById('ov-koniec-r').classList.remove('vis');
+  s.runda++; s.aktywna=s.runda%2; s.grajaca=s.aktywna;
+  if(s.runda>=dane.pytania.length) endGra(); else loadRunda();
+}
+
+function endGra() {
+  document.getElementById('ekran-gry').style.display='none';
+  document.getElementById('ekran-koniec').style.display='block';
+  const nazwy=getNazwy(), w=s.wyniki;
+  let zw = w[0]>w[1]?0:w[1]>w[0]?1:-1;
+  document.getElementById('fin-rzad').innerHTML=nazwy.map((n,i)=>`
+    <div class="fin-karta ${i===zw?'zwyciezca':''}">
+      ${i===zw?'<div class="fin-korona">&#127942;</div>':''}
+      <div class="fin-nazwa">${n}</div>
+      <div class="fin-pkt">${w[i]}</div>
+    </div>`).join('');
+}
+
+function restart() {
+  document.getElementById('ekran-koniec').style.display='none';
+  document.getElementById('ekran-ladowania').style.display='block';
+}
+
+function zmienDruzyne() {
+  if(s.faza!=='gra') return;
+  s.aktywna=1-s.aktywna; s.grajaca=s.aktywna; updatePanele();
+}
+function przyznajPkt() {
+  if(s.faza!=='gra') return;
+  s.wyniki[s.aktywna]+=s.pkt; koniecRundy(s.aktywna,s.pkt);
+}
+
+/* ===== KLAWIATURA ===== */
+document.addEventListener('keydown', e => {
+  const k=e.key.toLowerCase();
+  if(k==='q')          { buzzer(0); return; }
+  if(k==='p')          { buzzer(1); return; }
+  if(/^[1-9]$/.test(e.key)) { odkryj(parseInt(e.key)); return; }
+  if(k==='x')          { blad(); return; }
+  if(e.key==='Tab')    { e.preventDefault(); zmienDruzyne(); return; }
+  if(e.key===' ')      { e.preventDefault(); przyznajPkt(); return; }
+  if(k==='r'&&s.faza==='koniec_rundy') { nastepnaRunda(); return; }
+});
+</script>
+</body>
+</html>
