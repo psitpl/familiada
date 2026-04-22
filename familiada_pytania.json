@@ -1,55 +1,376 @@
 {
-  "_instrukcja": "Edytuj pytania i odpowiedzi tutaj. Kazde pytanie ma liste odpowiedzi z punktami (im wyzszy wynik, tym czesciej byla podawana). Suma punktow w rundzie to 100.",
+  "_instrukcja": "Edytuj pytania i odpowiedzi tutaj. Punkty powinny sumować się do 100 w każdej rundzie.",
   "pytania": [
     {
-      "pytanie": "Podaj rzecz, którą zawsze masz w torebce lub plecaku.",
+      "pytanie": "Jedziesz na wakacje nad morze w 2006. Jakiego wykonawcę słyszysz w radiu?",
       "odpowiedzi": [
-        { "tekst": "Telefon", "punkty": 38 },
-        { "tekst": "Portfel / klucze", "punkty": 27 },
-        { "tekst": "Chusteczki", "punkty": 15 },
-        { "tekst": "Ładowarka", "punkty": 10 },
-        { "tekst": "Guma do żucia", "punkty": 6 },
-        { "tekst": "Długopis", "punkty": 4 }
+        {
+          "tekst": "Ich Troje",
+          "punkty": 21
+        },
+        {
+          "tekst": "Nelly Furtado",
+          "punkty": 15
+        },
+        {
+          "tekst": "Skolim",
+          "punkty": 12
+        },
+        {
+          "tekst": "Shakira",
+          "punkty": 12
+        },
+        {
+          "tekst": "Gosia Andrzejewicz",
+          "punkty": 11
+        },
+        {
+          "tekst": "Doda",
+          "punkty": 11
+        },
+        {
+          "tekst": "Britney Spears",
+          "punkty": 9
+        },
+        {
+          "tekst": "Sanah",
+          "punkty": 9
+        }
       ]
     },
     {
-      "pytanie": "Podaj polskie miasto, które najchętniej odwiedziłbyś na weekend.",
+      "pytanie": "Klasyczny cytat z polskiego YouTube:",
       "odpowiedzi": [
-        { "tekst": "Kraków", "punkty": 35 },
-        { "tekst": "Gdańsk", "punkty": 25 },
-        { "tekst": "Wrocław", "punkty": 20 },
-        { "tekst": "Zakopane", "punkty": 12 },
-        { "tekst": "Warszawa", "punkty": 8 }
+        {
+          "tekst": "Ale urwał!",
+          "punkty": 55
+        },
+        {
+          "tekst": "Jestem hardkorem!",
+          "punkty": 17
+        },
+        {
+          "tekst": "Daj kamienia!",
+          "punkty": 12
+        },
+        {
+          "tekst": "Paweł będzie skakał / No i Pan Paweł",
+          "punkty": 7
+        },
+        {
+          "tekst": "Ała, kurwa, rzeczywiście!",
+          "punkty": 7
+        },
+        {
+          "tekst": "To je amelinium!",
+          "punkty": 2
+        }
       ]
     },
     {
-      "pytanie": "Podaj coś, co robisz jako pierwsze po wstaniu z łóżka.",
+      "pytanie": "Kto jest największym Polakiem?",
       "odpowiedzi": [
-        { "tekst": "Sprawdzam telefon", "punkty": 40 },
-        { "tekst": "Idę do toalety", "punkty": 30 },
-        { "tekst": "Piję kawę / herbatę", "punkty": 15 },
-        { "tekst": "Myję zęby", "punkty": 10 },
-        { "tekst": "Robię śniadanie", "punkty": 5 }
+        {
+          "tekst": "Jan Paweł II",
+          "punkty": 45
+        },
+        {
+          "tekst": "Mariusz Pudzianowski",
+          "punkty": 33
+        },
+        {
+          "tekst": "Adam Małysz",
+          "punkty": 15
+        },
+        {
+          "tekst": "Robert Kubica",
+          "punkty": 7
+        }
       ]
     },
     {
-      "pytanie": "Podaj popularne polskie danie.",
+      "pytanie": "Najgorsza dzielnica polskiego miasta:",
       "odpowiedzi": [
-        { "tekst": "Bigos", "punkty": 30 },
-        { "tekst": "Pierogi", "punkty": 28 },
-        { "tekst": "Żurek", "punkty": 18 },
-        { "tekst": "Kotlet schabowy", "punkty": 14 },
-        { "tekst": "Gołąbki", "punkty": 10 }
+        {
+          "tekst": "Łódź — Bałuty",
+          "punkty": 72
+        },
+        {
+          "tekst": "Warszawa — Praga",
+          "punkty": 15
+        },
+        {
+          "tekst": "Nowa Huta",
+          "punkty": 6
+        },
+        {
+          "tekst": "Poznań — Jeżyce",
+          "punkty": 4
+        },
+        {
+          "tekst": "Warszawa — Targówek",
+          "punkty": 3
+        }
       ]
     },
     {
-      "pytanie": "Podaj coś, co robimy na imprezie sylwestrowej.",
+      "pytanie": "Scancelowany twórca naszej młodości (popularny w latach 2010-2020):",
       "odpowiedzi": [
-        { "tekst": "Oglądamy fajerwerki", "punkty": 32 },
-        { "tekst": "Tańczymy", "punkty": 28 },
-        { "tekst": "Wznosimy toast szampanem", "punkty": 20 },
-        { "tekst": "Śpiewamy", "punkty": 12 },
-        { "tekst": "Jemy przekąski", "punkty": 8 }
+        {
+          "tekst": "Stuu / Polski Pingwin",
+          "punkty": 37
+        },
+        {
+          "tekst": "Gargamel",
+          "punkty": 32
+        },
+        {
+          "tekst": "Gonciarz",
+          "punkty": 15
+        },
+        {
+          "tekst": "J.K. Rowling",
+          "punkty": 5
+        },
+        {
+          "tekst": "Kevin Spacey",
+          "punkty": 5
+        },
+        {
+          "tekst": "Kanye West",
+          "punkty": 4
+        },
+        {
+          "tekst": "JJayJoker",
+          "punkty": 2
+        }
+      ]
+    },
+    {
+      "pytanie": "Młodzieżowe słowo dowolnego roku:",
+      "odpowiedzi": [
+        {
+          "tekst": "Śpiulkolot",
+          "punkty": 28
+        },
+        {
+          "tekst": "Dzban",
+          "punkty": 25
+        },
+        {
+          "tekst": "XD",
+          "punkty": 15
+        },
+        {
+          "tekst": "Essa",
+          "punkty": 13
+        },
+        {
+          "tekst": "Sigma",
+          "punkty": 10
+        },
+        {
+          "tekst": "Szponcić",
+          "punkty": 6
+        },
+        {
+          "tekst": "Jesieniara",
+          "punkty": 3
+        }
+      ]
+    },
+    {
+      "pytanie": "Film Patryka Vegi:",
+      "odpowiedzi": [
+        {
+          "tekst": "Pitbull",
+          "punkty": 33
+        },
+        {
+          "tekst": "Botoks",
+          "punkty": 33
+        },
+        {
+          "tekst": "Kobiety Mafii",
+          "punkty": 19
+        },
+        {
+          "tekst": "Polityka",
+          "punkty": 7
+        },
+        {
+          "tekst": "Psy",
+          "punkty": 4
+        },
+        {
+          "tekst": "Putin",
+          "punkty": 4
+        }
+      ]
+    },
+    {
+      "pytanie": "Portal na którym się siedziało godzinami po szkole (popularny w latach 2005-2015):",
+      "odpowiedzi": [
+        {
+          "tekst": "Nasza Klasa",
+          "punkty": 55
+        },
+        {
+          "tekst": "Grono.net",
+          "punkty": 10
+        },
+        {
+          "tekst": "ePuls",
+          "punkty": 9
+        },
+        {
+          "tekst": "Kwejk",
+          "punkty": 8
+        },
+        {
+          "tekst": "Gadu-Gadu",
+          "punkty": 7
+        },
+        {
+          "tekst": "Komixxy",
+          "punkty": 6
+        },
+        {
+          "tekst": "Ask.fm",
+          "punkty": 5
+        }
+      ]
+    },
+    {
+      "pytanie": "Najgorszy drink/napój alkoholowy, jaki ludzie udają że lubią:",
+      "odpowiedzi": [
+        {
+          "tekst": "Wódka",
+          "punkty": 44
+        },
+        {
+          "tekst": "Whisky",
+          "punkty": 33
+        },
+        {
+          "tekst": "Mojito",
+          "punkty": 5
+        },
+        {
+          "tekst": "Piwo",
+          "punkty": 5
+        },
+        {
+          "tekst": "Jägermeister",
+          "punkty": 5
+        },
+        {
+          "tekst": "Gin z tonikiem",
+          "punkty": 4
+        },
+        {
+          "tekst": "Aperol Spritz",
+          "punkty": 4
+        }
+      ]
+    },
+    {
+      "pytanie": "Szablon mema wczesnego internetu (typu top text bottom text):",
+      "odpowiedzi": [
+        {
+          "tekst": "Bad Luck Brian",
+          "punkty": 34
+        },
+        {
+          "tekst": "Demotywator",
+          "punkty": 18
+        },
+        {
+          "tekst": "Trollface",
+          "punkty": 17
+        },
+        {
+          "tekst": "Me Gusta",
+          "punkty": 11
+        },
+        {
+          "tekst": "Rage Comics / FFFFFFFUUU",
+          "punkty": 7
+        },
+        {
+          "tekst": "Zjarany Zbyszek",
+          "punkty": 7
+        },
+        {
+          "tekst": "Filozoforaptor",
+          "punkty": 6
+        }
+      ]
+    },
+    {
+      "pytanie": "Niezbędny element wycieczki do Czech:",
+      "odpowiedzi": [
+        {
+          "tekst": "Piwo",
+          "punkty": 27
+        },
+        {
+          "tekst": "Kofola",
+          "punkty": 25
+        },
+        {
+          "tekst": "Aborcja",
+          "punkty": 13
+        },
+        {
+          "tekst": "Knedle",
+          "punkty": 12
+        },
+        {
+          "tekst": "Smażony ser",
+          "punkty": 10
+        },
+        {
+          "tekst": "Korony czeskie",
+          "punkty": 7
+        },
+        {
+          "tekst": "Zioło",
+          "punkty": 6
+        }
+      ]
+    },
+    {
+      "pytanie": "Dokończ: jebać …",
+      "odpowiedzi": [
+        {
+          "tekst": "PiS",
+          "punkty": 36
+        },
+        {
+          "tekst": "Policję",
+          "punkty": 23
+        },
+        {
+          "tekst": "Disa",
+          "punkty": 21
+        },
+        {
+          "tekst": "Nic się nie bać",
+          "punkty": 8
+        },
+        {
+          "tekst": "PiS i Konfederację",
+          "punkty": 4
+        },
+        {
+          "tekst": "Falubaz",
+          "punkty": 4
+        },
+        {
+          "tekst": "Biedę",
+          "punkty": 4
+        }
       ]
     }
   ]
