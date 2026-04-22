@@ -24,6 +24,10 @@ README.md                   ← ten plik
 ## Uruchomienie
 
 1. Pobierz całe repozytorium (lub przynajmniej `familiada.html` i `familiada_pytania.json`) do jednego folderu.
+  - jeśli umiesz nomalnie gita obsługiwać to super, jeśli nie to:
+      1. Kliknij zielony przycisk `<> Code`
+      2. Kliknij Download as Zip
+      3. Rozpakuj zip
 2. Otwórz `familiada.html` w przeglądarce (Chrome / Firefox / Edge — wszystkie działają).
 3. Na ekranie startowym kliknij **„Wczytaj pytania (JSON)"** i wskaż plik `familiada_pytania.json`.
 4. Opcjonalnie wczytaj dźwięki (patrz sekcja [Dźwięki](#dźwięki)).
